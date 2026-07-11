@@ -4,6 +4,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_pymongo import PyMongo
 from flask_cors import CORS
 import os
+import gdown
 import re
 import random
 from difflib import SequenceMatcher
@@ -108,11 +109,26 @@ class RecommendationEngine:
             similarity_path = os.path.join(current_dir, 'similarity.npy')
             
             # Check if files exist
+            # Check if files exist
             if not os.path.exists(movies_path):
-                raise FileNotFoundError(f"movies.csv not found at {movies_path}")
+             raise FileNotFoundError(f"movies.csv not found at {movies_path}")
+
             if not os.path.exists(similarity_path):
-                raise FileNotFoundError(f"similarity.npy not found at {similarity_path}")
-            
+             logger.info("similarity.npy not found. Downloading from Google Drive...")
+
+             similarity_url = os.getenv("SIMILARITY_URL")
+
+             if not similarity_url:
+              raise RuntimeError("SIMILARITY_URL environment variable is not set.")
+
+             gdown.download(
+              url=similarity_url,
+              output=similarity_path,
+              quiet=False
+             )
+
+             if not os.path.exists(similarity_path):
+              raise FileNotFoundError("Failed to download similarity.npy")
             # Load movies data
             logger.info("Loading movies.csv into memory...")
             self.movies_df = pd.read_csv(movies_path,
