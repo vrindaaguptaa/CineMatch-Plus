@@ -1,112 +1,369 @@
-# CineMatch+
+# 🎬 CineMatch+
 
-CineMatch+ is a Flask and vanilla JavaScript movie-discovery app. It uses a
-local cosine-similarity model for recommendations, TMDB for current movie
-metadata, and MongoDB Atlas for accounts and personal libraries.
+> **AI-Powered Hybrid Movie Recommendation System** built using **Machine Learning, Flask, TMDB API, and Personalized User Profiling**.
 
-## Requirements
+![Python](https://img.shields.io/badge/Python-3.10+-blue)
+![Flask](https://img.shields.io/badge/Flask-Web%20Framework-black)
+![Machine Learning](https://img.shields.io/badge/Machine%20Learning-Scikit--Learn-orange)
+![TMDB](https://img.shields.io/badge/TMDB-API-green)
+![License](https://img.shields.io/badge/License-MIT-yellow)
 
-- Python 3.11 (the deployment version is pinned in `.python-version`)
-- A MongoDB Atlas connection string for authentication and saved lists
-- A TMDB API key for discovery, autocomplete, posters, trailers, and details
+---
 
-The app remains usable if TMDB is unavailable: discovery lists become empty
-and local recommendations still work. Authentication-dependent features return
-a clear `503` response if MongoDB is unavailable.
+## 📌 Overview
 
-## Run locally
+CineMatch+ is a modern AI-powered movie discovery platform that combines **Content-Based Filtering** with **TMDB's live movie database** to deliver personalized movie recommendations.
+
+Unlike traditional recommendation systems that rely only on static datasets, CineMatch+ enriches recommendations with **real-time movie information**, **dynamic user preferences**, **favorites**, **watchlists**, **ratings**, and an interactive analytics dashboard.
+
+---
+
+## ✨ Features
+
+### 🎯 Intelligent Recommendation Engine
+
+- Content-Based Movie Recommendation
+- Cosine Similarity
+- Hybrid Recommendation Ranking
+- Personalized Recommendations
+- Recommendation Explanations
+- Similarity Score
+
+---
+
+### 🎬 Live TMDB Integration
+
+- Live Movie Search
+- Autocomplete Search
+- Movie Posters
+- Backdrops
+- Movie Overview
+- Genres
+- Runtime
+- Release Date
+- Ratings
+- Cast Information
+- Trailer Links
+- Popular Movies
+
+---
+
+### 👤 User Personalization
+
+- Authentication
+- Favorites
+- Watchlist
+- Watch History
+- Movie Ratings
+- Dynamic Preference Learning
+- Personalized Dashboard
+
+---
+
+### 📊 Dashboard
+
+View your movie activity through:
+
+- Favorites Count
+- Watchlist Count
+- Rating Distribution
+- User Preferences
+- Recently Watched
+- Recommendation Statistics
+
+---
+
+### 🔍 Smart Search
+
+- Real-time TMDB Autocomplete
+- Debounced Search
+- Keyboard Navigation
+- AbortController Support
+- Fast Search Experience
+
+---
+
+### 🎨 Modern UI
+
+- Netflix-inspired Dark Theme
+- Hero Banner
+- Responsive Design
+- Interactive Movie Cards
+- Detailed Movie Modal
+- Toast Notifications
+- Smooth Animations
+
+---
+
+## 🧠 Machine Learning Pipeline
+
+```
+Movie Dataset
+       │
+       ▼
+Data Cleaning
+       │
+       ▼
+Feature Engineering
+       │
+       ▼
+Count Vectorization
+       │
+       ▼
+Cosine Similarity Matrix
+       │
+       ▼
+Top Similar Movies
+       │
+       ▼
+Hybrid Re-ranking
+       │
+       ▼
+Personalized Recommendations
+```
+
+---
+
+## 🏗 System Architecture
+
+```
+                User
+                  │
+                  ▼
+          Flask Web Application
+                  │
+      ┌───────────┼───────────┐
+      ▼                       ▼
+Recommendation Engine     TMDB Service
+      │                       │
+      ▼                       ▼
+movies.csv             TMDB REST API
+Cosine Similarity
+      │
+      ▼
+Personalized Results
+```
+
+---
+
+## ⚙ Tech Stack
+
+### Frontend
+
+- HTML5
+- CSS3
+- JavaScript (ES6)
+
+### Backend
+
+- Flask
+- Python
+
+### Machine Learning
+
+- Scikit-Learn
+- Pandas
+- NumPy
+- Cosine Similarity
+- CountVectorizer
+
+### APIs
+
+- TMDB API
+
+### Tools
+
+- Git
+- GitHub
+- Vercel
+- VS Code
+
+---
+
+## 🚀 Core Features
+
+✅ Hybrid Movie Recommendation
+
+✅ Live TMDB Integration
+
+✅ Smart Autocomplete Search
+
+✅ Personalized Dashboard
+
+✅ Favorites
+
+✅ Watchlist
+
+✅ Movie Ratings
+
+✅ Watch History
+
+✅ Recommendation Explanation
+
+✅ Similarity Score
+
+✅ Trailer Integration
+
+✅ Responsive UI
+
+✅ Authentication
+
+---
+
+## 📂 Project Structure
+
+```
+CineMatch-Plus
+│
+├── public/
+│   ├── images/
+│   ├── videos/
+│   ├── script.js
+│   └── style.css
+│
+├── templates/
+│   └── index.html
+│
+├── app.py
+├── main.py
+├── run.py
+├── tmdb_service.py
+├── movies.csv
+├── requirements.txt
+├── README.md
+├── .env.example
+└── vercel.json
+```
+
+---
+
+## ⚡ Installation
+
+Clone the repository
 
 ```bash
-python -m venv .venv
-source .venv/bin/activate
+git clone https://github.com/vrindaaguptaa/CineMatch-Plus.git
+```
+
+Move into the project
+
+```bash
+cd CineMatch-Plus
+```
+
+Install dependencies
+
+```bash
 pip install -r requirements.txt
-cp .env.example .env
-python main.py
 ```
 
-Open `http://localhost:5001`.
+Create a `.env` file
 
-For local HTTP development, set `SESSION_COOKIE_SECURE=false`. Do not set
-`FLASK_DEBUG=true` in a deployed environment.
-
-## Environment variables
-
-Copy `.env.example` and configure these values:
-
-```dotenv
-# Required in production for signed login sessions.
-SESSION_SECRET_KEY=use-a-long-random-value
-
-# Required for login, signup, favorites, watchlist, ratings, and onboarding.
-MONGO_URI=mongodb+srv://<username>:<password>@<cluster>.mongodb.net/MovieRS?retryWrites=true&w=majority
-
-# Required for TMDB-backed discovery and movie details.
-TMDB_API_KEY=<tmdb-api-key>
-
-# true on HTTPS deployments such as Vercel; false for local HTTP.
-SESSION_COOKIE_SECURE=true
-
-# Optional: comma-separated allowed browser origins when the frontend is hosted
-# separately from this Flask application.
-FRONTEND_URL=https://your-frontend.example
-
-# Optional local debugging only. Never enable in production.
-FLASK_DEBUG=false
+```env
+TMDB_API_KEY=your_api_key_here
+SECRET_KEY=your_secret_key
 ```
 
-## Recommendation data
-
-`movies.csv` contains the movie catalog. `similarity.npy` is the production
-float32 similarity matrix and is loaded with NumPy memory mapping. The original
-`similarity.csv` is retained only as a source artifact and excluded from Vercel
-function bundles; do not delete `similarity.npy`.
-
-If the model notebook is regenerated, recreate the binary matrix before
-deployment:
+Run the application
 
 ```bash
-python - <<'PY'
-from pathlib import Path
-import numpy as np
-
-source, target, rows = Path('similarity.csv'), Path('similarity.npy'), 4806
-matrix = np.lib.format.open_memmap(target, mode='w+', dtype=np.float32, shape=(rows, rows))
-with source.open(encoding='utf-8') as file:
-    for index, line in enumerate(file):
-        values = np.fromstring(line, sep=',', dtype=np.float32)
-        if values.size != rows:
-            raise ValueError(f'Row {index + 1} has {values.size} values; expected {rows}.')
-        matrix[index] = values
-matrix.flush()
-PY
+python run.py
 ```
 
-## Deploy to Vercel
+Open
 
-`app.py` is the Vercel Flask entry point. Static files live in `public/` so
-Vercel serves them from its CDN; `vercel.json` rewrites application requests to
-the Flask app and excludes local-only artifacts from the function bundle.
-
-1. Import this repository into Vercel or run `vercel` from the repository root.
-2. In **Project Settings → Environment Variables**, add every production value
-   listed above (except `FLASK_DEBUG`).
-3. Deploy with `vercel --prod`.
-
-Before deployment, run:
-
-```bash
-python -m py_compile app.py main.py tmdb_service.py
-node --check public/script.js
+```
+http://127.0.0.1:5001
 ```
 
-## API summary
+---
 
-- `POST /recommend` — local or hybrid movie recommendations
-- `GET /api/discovery/featured`, `/popular`, `/search?q=` — TMDB discovery
-- `GET /api/movie/<id>` — TMDB movie details
-- `POST /signup`, `POST /login`, `POST /logout`, `GET /me` — session auth
-- `GET|POST|PUT|DELETE /api/library/...` — authenticated personal library
-- `GET|POST /api/onboarding` and `GET /api/dashboard` — profile preferences
+## 🔑 Environment Variables
 
-API failures return JSON with `error` and `message`; framework-level API
-failures also include `success: false`.
+```
+TMDB_API_KEY=your_tmdb_api_key
+SECRET_KEY=your_secret_key
+SESSION_COOKIE_SECURE=False
+```
+
+---
+
+## 📸 Screenshots
+
+### Home Page
+
+<img src="screenshots/home.png" width="100%">
+
+### Recommendation Page
+
+<img src="screenshots/recommendation.png" width="100%">
+
+### Dashboard
+
+<img src="screenshots/dashboard.png" width="100%">
+
+### Movie Details
+
+<img src="screenshots/details.png" width="100%">
+
+---
+
+## 📈 Future Improvements
+
+- Collaborative Filtering
+- Deep Learning Recommendations
+- User Reviews
+- Social Features
+- Streaming Platform Integration
+- Recommendation Timeline
+- Genre Analytics
+- Recommendation Graph Visualization
+
+---
+
+## 🎯 Resume Highlights
+
+- Developed a **Hybrid Movie Recommendation System** using Machine Learning and Cosine Similarity.
+- Integrated **TMDB API** for real-time movie discovery and metadata enrichment.
+- Built a responsive full-stack web application using Flask and JavaScript.
+- Implemented personalized recommendation logic using user interactions including favorites, watchlists, ratings, and watch history.
+- Designed an interactive dashboard to visualize user preferences and recommendation insights.
+
+---
+
+## 📚 Learning Outcomes
+
+This project demonstrates practical implementation of:
+
+- Machine Learning
+- Content-Based Filtering
+- Cosine Similarity
+- REST APIs
+- Flask Backend Development
+- Frontend Development
+- API Integration
+- User Personalization
+- Recommendation Systems
+- Software Architecture
+
+---
+
+## 🤝 Contributing
+
+Contributions, suggestions, and feature requests are welcome.
+
+Feel free to fork the repository and submit a pull request.
+
+---
+
+## 👩‍💻 Author
+
+**Vrinda Gupta**
+
+GitHub: https://github.com/vrindaaguptaa
+
+---
+
+## ⭐ Support
+
+If you found this project useful, consider giving it a ⭐ on GitHub.
