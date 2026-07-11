@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CineMatch — Discover your next favorite</title>
+    <link rel="stylesheet" href="{{ url_for('static',filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+</head>
+<body>
+    <nav class="navbar">
+        <a href="/" class="brand-logo" aria-label="CineMatch home">CINEMATCH<span>+</span></a>
+        <ul class="nav-links"><li><a href="#discover">Discover</a></li><li><a href="#popular">Popular</a></li><li><button type="button" data-library-link="favorites">❤️ Favorites</button></li><li><button type="button" data-library-link="watchlist">📌 Watchlist</button></li><li><button type="button" id="dashboard-link">📊 Dashboard</button></li></ul>
+        <div class="right-container">
+            <button type="button" class="login-link" id="auth-trigger" aria-haspopup="dialog" aria-expanded="false">Login</button>
+        </div>
+    </nav>
+
+    <main>
+        <section id="featured-hero" class="featured-hero is-loading">
+            <div class="hero-art"></div><div class="hero-shade"></div>
+            <div class="hero-content"><p class="eyebrow">Featured tonight</p><h1 class="movie-title skeleton-text">Finding something great…</h1><p class="movie-des skeleton-text"></p><p class="hero-meta"></p><p class="hero-genres"></p><div class="hero-actions"><button class="watch hero-details" type="button" disabled><i class="fa-solid fa-circle-info"></i> Details</button><button class="hero-favorite" type="button" disabled><i class="fa-regular fa-heart"></i> Favorite</button><a class="hero-trailer" target="_blank" rel="noopener" hidden>Watch trailer</a></div></div>
+        </section>
+
+        <section class="brand-rail" aria-label="Browse collections"><span>For movie lovers</span><span>Personalized discovery</span><span>Powered by TMDB</span></section>
+
+        <section id="discover" class="content-section recommendation-section">
+            <div class="section-heading"><div><p class="eyebrow">AI discovery</p><h2>Recommended for you</h2><p class="section-reason">Find movies similar to your favorite movie.</p><p id="recommendation-reason" class="section-reason" hidden></p></div><div class="recommendation-controls"><div class="recommendation-search"><i class="fa-solid fa-magnifying-glass"></i><input class="field" id="fornamesake" type="search" placeholder="Search for a movie" autocomplete="off"><div id="search-results" class="search-results" role="listbox"></div></div><input id="ret" type="hidden"><button class="sub-btn" type="button" id="Recommendations" disabled>Find matches</button></div></div>
+            <div id="recommendation-row" class="movie-carousel" aria-live="polite"></div>
+        </section>
+
+        <section id="popular" class="content-section">
+            <div class="section-heading"><div><p class="eyebrow">What’s buzzing</p><h2>Popular now</h2><p class="section-reason">Fresh picks from the world of cinema.</p></div></div>
+            <div id="popular-row" class="movie-carousel"></div>
+        </section>
+
+        <section id="library-view" class="library-view" hidden><div class="section-heading"><div><p class="eyebrow">Your collection</p><h2 id="library-title">Favorites</h2></div>
+            <div class="library-actions"><select id="library-sort" class="field"></select><button type="button" class="text-button" id="close-library" class="text-button">Back to discovery</button></div>
+        </div><div id="library-row" class="movie-grid"></div></section>
+        <section id="dashboard-view" class="library-view" hidden><div class="section-heading"><div><p class="eyebrow">Your insights</p><h2>Dashboard</h2></div><button type="button" class="text-button" id="close-dashboard">Back to discovery</button></div><div id="dashboard-content" class="dashboard-grid"></div></section>
+    </main>
+    <footer><p>© 2026 CineMatch · Your personal movie discovery space.</p></footer>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

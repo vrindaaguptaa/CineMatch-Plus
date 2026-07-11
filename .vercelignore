@@ -1,0 +1,6 @@
+# The binary matrix is the runtime artifact. Keep the large CSV source local.
+similarity.csv
+run.py
+run_backup.py
+mlmodel.ipynb
+.ipynb_checkpoints/
