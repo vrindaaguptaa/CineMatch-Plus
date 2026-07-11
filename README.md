@@ -6,7 +6,6 @@
 ![Flask](https://img.shields.io/badge/Flask-Web%20Framework-black)
 ![Machine Learning](https://img.shields.io/badge/Machine%20Learning-Scikit--Learn-orange)
 ![TMDB](https://img.shields.io/badge/TMDB-API-green)
-![License](https://img.shields.io/badge/License-MIT-yellow)
 
 ---
 
