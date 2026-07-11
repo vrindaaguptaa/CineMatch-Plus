@@ -297,14 +297,6 @@ SESSION_COOKIE_SECURE=False
 
 <img src="screenshots/recommendation.png" width="100%">
 
-### Dashboard
-
-<img src="screenshots/dashboard.png" width="100%">
-
-### Movie Details
-
-<img src="screenshots/details.png" width="100%">
-
 ---
 
 ## 📈 Future Improvements
