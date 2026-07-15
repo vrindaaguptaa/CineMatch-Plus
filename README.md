@@ -266,7 +266,7 @@ SECRET_KEY=your_secret_key
 Run the application
 
 ```bash
-python run.py
+python main.py
 ```
 
 Open
